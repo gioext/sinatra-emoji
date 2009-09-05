@@ -2,6 +2,8 @@ h1. Sinatra-Emoji
 
 Mobile emoji on Sinatra
 
+h2. Usage
+
 h2. License
 
 Copyright (c) 2009 Kazuki UCHIDA
