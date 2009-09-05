@@ -1,22 +1,28 @@
+require 'nkf'
+
+helpers do
+  alias_method :__erb__, :erb 
+  alias_method :__haml__, :haml 
+end
+
 module Sinatra
   module Emoji
     module Helpers
-
-      alias_method :_erb, :erb 
-      alias_method :_haml, :haml 
-
       def emoji(no)
         "{$#{no}}"
       end
 
-      def erb(template, options={}, locals={})
-        html = _erb(template, options, locals)
+      def erb(template, opts={}, locals={})
+        html = __erb__(template, opts, locals)
+        p options
+        html = NKF.nkf('-s -x', html) if options.output_encoding_sjis
         parseEmoji(html)
       end
 
-      def haml(template, options={}, locals={})
-        html = _haml(template, options, locals)
-        parseEmoji(html)
+      def haml(template, opts={}, locals={})
+        html = __haml__(template, opts, locals)
+        html = NKF.nkf('-s -x', html) if options.output_encoding_sjis
+        html = parseEmoji(html)
       end
 
       def isDocomo
@@ -33,13 +39,13 @@ module Sinatra
 
       private
       def parseEmoji(html)
-        html.gsub(/\{$(\d+)\}/) do |no|
-          encodeEmoji(no.to_i)
+        html.gsub(/\{\$(\d+)\}/) do |no|
+          encodeEmoji($1.to_i)
         end
       end
 
       def encodeEmoji(no)
-        return '' unless EMOJI.include?(no)
+        return '' unless EMOJI_TBL[no]
 
         carrier = ''
         if isDocomo
@@ -52,9 +58,9 @@ module Sinatra
           return ''
         end
 
-        code = EMOJI[no][carrier]
+        code = EMOJI_TBL[no][carrier]
         if code.empty?
-          code = EMOJI[options.default_emoji][carrier]
+          code = EMOJI_TBL[options.default_emoji][carrier]
         end
         [code].pack('H*')
       end
@@ -66,12 +72,12 @@ module Sinatra
 
     def self.registered(app)
       app.helpers Emoji::Helpers
-
       app.set :default_emoji, 0 
+      app.set :output_encoding_sjis, true
     end
   end
-  
-  register MemCache
+
+  register Emoji
 
   EMOJI_TBL = [
     { :i => 'F89F', :e => 'F660', :s => '1B24476A0F' },   # 0:晴れ
