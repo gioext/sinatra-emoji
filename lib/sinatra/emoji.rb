@@ -14,7 +14,6 @@ module Sinatra
 
       def erb(template, opts={}, locals={})
         html = __erb__(template, opts, locals)
-        p options
         html = NKF.nkf('-s -x', html) if options.output_encoding_sjis
         parseEmoji(html)
       end
