@@ -5,9 +5,13 @@ Mobile emoji on Sinatra
 h2. Usage
 
 <pre>
+sudo gem install gioext-sinatra-emoji
+</pre
+
+<pre>
 require 'rubygems'
 require 'sinatra'
-require '../lib/sinatra/emoji'
+require 'sinatra/emoji'
 
 get '/' do
   erb :index
