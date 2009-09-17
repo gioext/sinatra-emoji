@@ -6,7 +6,7 @@ h2. Usage
 
 <pre>
 sudo gem install gioext-sinatra-emoji
-</pre
+</pre>
 
 <pre>
 require 'rubygems'
