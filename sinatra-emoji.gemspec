@@ -1,8 +1,8 @@
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
   s.name = "sinatra-emoji"
-  s.version = "0.1.3"
-  s.date = "2009-09-12"
+  s.version = "0.1.4"
+  s.date = "2009-09-17"
   s.authors = ["gioext"]
   s.email = "gioext@gmail.com"
   s.homepage = "http://github.com/gioext/sinatra-emoji"

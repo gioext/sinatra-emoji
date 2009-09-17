@@ -1,10 +1,3 @@
-h1. Sinatra-Emoji
-
-Mobile emoji on Sinatra
-
-h2. Usage
-
-<pre>
 require 'rubygems'
 require 'sinatra'
 require '../lib/sinatra/emoji'
@@ -42,13 +35,3 @@ __END__
 <%= emoji(1) %>
 <br />
 はろー
-</pre>
-
-h2. License
-
-Copyright (c) 2009 Kazuki UCHIDA
-
-Licensed under the MIT License:
-
-- http://www.opensource.org/licenses/mit-license.php
-
